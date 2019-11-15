@@ -5,6 +5,8 @@ import Bio from "../components/bio"
 import Layout from "../components/layout"
 import SEO from "../components/seo"
 import { rhythm } from "../utils/typography"
+import styled from 'styled-components'
+import { NONAME } from "dns";
 
 interface Edge {
   node:{
@@ -33,6 +35,14 @@ interface BlogIndexProps {
   location: Location
 }
 
+const Blogtitle = styled.h3`
+  margin-bottom: ${rhythm(1 / 4)};
+`
+const Bloglink = styled.Link`
+  box-shadow: none;
+`
+
+
 class BlogIndex extends React.Component<BlogIndexProps> {
   render() {
     const { data } = this.props
@@ -48,15 +58,11 @@ class BlogIndex extends React.Component<BlogIndexProps> {
           return (
             <article key={node.fields.slug}>
               <header>
-                <h3
-                  style={{
-                    marginBottom: rhythm(1 / 4),
-                  }}
-                >
-                  <Link style={{ boxShadow: `none` }} to={node.fields.slug}>
+                <Blogtitle>
+                  <Bloglink to={node.fields.slug}>
                     {title}
-                  </Link>
-                </h3>
+                  </Bloglink>
+                </Blogtitle>
                 <small>{node.frontmatter.date}</small>
               </header>
               <section>
