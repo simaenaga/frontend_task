@@ -38,7 +38,7 @@ interface BlogIndexProps {
 const Blogtitle = styled.h3`
   margin-bottom: ${rhythm(1 / 4)};
 `
-const Bloglink = styled.Link`
+const Bloglink = styled(Link)`
   box-shadow: none;
 `
 
