@@ -5,9 +5,35 @@ import Bio from "../components/bio"
 import Layout from "../components/layout"
 import SEO from "../components/seo"
 import { rhythm } from "../utils/typography"
+import { Location } from "history"
 
-interface BlogIndexProps {
+interface Edge {
+  node:{
+    frontmatter: {
+      title: string,
+      date: Date,
+      description: string
+    },
+    fields: {
+      slug: string
+    },
+    excerpt: string
+  }
 }
+interface BlogIndexProps {
+  data: {
+    site: {
+      siteMetadata: {
+        title: string
+      }
+    },
+    allMarkdownRemark: {
+      edges: Edge[]
+    },
+  },
+  location: Location
+}
+
 class BlogIndex extends React.Component<BlogIndexProps> {
   render() {
     const { data } = this.props
