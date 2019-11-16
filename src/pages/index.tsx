@@ -6,7 +6,6 @@ import Layout from "../components/layout"
 import SEO from "../components/seo"
 import { rhythm } from "../utils/typography"
 import styled from 'styled-components'
-import { NONAME } from "dns";
 
 interface Edge {
   node:{
@@ -31,6 +30,11 @@ interface BlogIndexProps {
     allMarkdownRemark: {
       edges: Edge[]
     },
+    top: {
+      childImageSharp: {
+        fixed
+      }
+    }
   },
   location: Location
 }
@@ -50,7 +54,8 @@ class BlogIndex extends React.Component<BlogIndexProps> {
     const posts = data.allMarkdownRemark.edges
 
     return (
-      <Layout location={this.props.location} title={siteTitle}>
+      <div>
+      <Layout　img={data.top.childImageSharp.fixed} alt="top">
         <SEO title="All posts" />
         <Bio />
         {posts.map(({ node }) => {
@@ -76,6 +81,7 @@ class BlogIndex extends React.Component<BlogIndexProps> {
           )
         })}
       </Layout>
+      </div>
     )
   }
 }
@@ -101,6 +107,13 @@ export const pageQuery = graphql`
             title
             description
           }
+        }
+      }
+    }
+    top: file(absolutePath: { regex: "/top.jpg/" }) {
+      childImageSharp {
+        fixed(width: 1200) {
+          ...GatsbyImageSharpFixed
         }
       }
     }
