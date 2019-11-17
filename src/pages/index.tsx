@@ -2,6 +2,10 @@ import * as React from "react";
 import { Link, graphql } from "gatsby"
 
 import SelfIntro from "../components/selfIntro"
+import Detail from "../components/Detail"
+import Work from "../components/Work"
+import Activity from "../components/Activity"
+import Sns from "../components/Sns"
 import Layout from "../components/layout"
 import SEO from "../components/seo"
 import { rhythm } from "../utils/typography"
@@ -85,6 +89,10 @@ class BlogIndex extends React.Component<BlogIndexProps> {
           selfIntro={data.selfIntro.edges}
         />
         <SEO title="All posts" />
+        <Work />
+        <Detail />
+        <Activity />
+        <Sns />
         {/* {posts.map(({ node }) => {
           const title = node.frontmatter.title || node.fields.slug
           return (
