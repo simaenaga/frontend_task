@@ -27,7 +27,8 @@ interface SelfIntroType {
       job: string,
       sex: string,
       birth_date: string,
-      address: string
+      address: string,
+      name_and_frigana: string
     },
     html: HTMLElement
   }
@@ -148,6 +149,7 @@ export const pageQuery = graphql`
             sex
             birth_date
             address
+            name_and_frigana
           }
           html
         }
