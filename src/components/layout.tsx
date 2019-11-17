@@ -13,10 +13,10 @@ const Footer = styled.div`
 const Wrapper = styled.div`
   margin: auto;
   width: 1200px;
+  font-family: Roboto;
+  font-style: normal;
 `
 interface LayoutProps {
-  img? : FixedObject,
-  alt? : string
 }
 
 class Layout extends React.Component<LayoutProps> {
@@ -25,13 +25,6 @@ class Layout extends React.Component<LayoutProps> {
     // ???????????????????????????????
     return (
       <Wrapper>
-        {this.props.img ?
-        <Image
-          fixed={this.props.img}
-          alt={this.props.alt}
-        />
-        : null
-        }
         <main>{children}</main>
         <Footer/>
       </Wrapper>

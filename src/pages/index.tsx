@@ -1,23 +1,35 @@
 import * as React from "react";
 import { Link, graphql } from "gatsby"
 
-import Bio from "../components/bio"
+import SelfIntro from "../components/selfIntro"
 import Layout from "../components/layout"
 import SEO from "../components/seo"
 import { rhythm } from "../utils/typography"
 import styled from 'styled-components'
 
-interface Edge {
-  node:{
+// interface Edge {
+//   node{
+//     frontmatter: {
+//       title: string,
+//       date: Date,
+//       description: string
+//     },
+//     fields: {
+//       slug: string
+//     },
+//     excerpt: string
+//   }
+// }
+interface SelfIntroType {
+  node: {
     frontmatter: {
-      title: string,
-      date: Date,
-      description: string
+      name: string,
+      job: string,
+      sex: string,
+      birth_date: string,
+      address: string
     },
-    fields: {
-      slug: string
-    },
-    excerpt: string
+    html: HTMLElement
   }
 }
 interface BlogIndexProps {
@@ -27,10 +39,18 @@ interface BlogIndexProps {
         title: string
       }
     },
-    allMarkdownRemark: {
-      edges: Edge[]
+    // allMarkdownRemark: {
+    //   edges: Edge[]
+    // },
+    selfIntro: {
+      edges: SelfIntroType[]
     },
     top: {
+      childImageSharp: {
+        fixed
+      }
+    },
+    pro: {
       childImageSharp: {
         fixed
       }
@@ -44,21 +64,27 @@ const Blogtitle = styled.h3`
 `
 const Bloglink = styled(Link)`
   box-shadow: none;
+  color: #ff981a;
+  /* text-decoration: none; */
 `
 
 
 class BlogIndex extends React.Component<BlogIndexProps> {
   render() {
     const { data } = this.props
-    const siteTitle = data.site.siteMetadata.title
-    const posts = data.allMarkdownRemark.edges
+    // const siteTitle = data.site.siteMetadata.title
+    // const posts = data.allMarkdownRemark.edges
 
     return (
       <div>
-      <Layout　img={data.top.childImageSharp.fixed} alt="top">
+      <Layout>
+        <SelfIntro
+          top={data.top.childImageSharp.fixed}
+          pro={data.pro.childImageSharp.fixed}
+          selfIntro={data.selfIntro.edges}
+        />
         <SEO title="All posts" />
-        <Bio />
-        {posts.map(({ node }) => {
+        {/* {posts.map(({ node }) => {
           const title = node.frontmatter.title || node.fields.slug
           return (
             <article key={node.fields.slug}>
@@ -79,7 +105,7 @@ class BlogIndex extends React.Component<BlogIndexProps> {
               </section>
             </article>
           )
-        })}
+        })} */}
       </Layout>
       </div>
     )
@@ -95,24 +121,48 @@ export const pageQuery = graphql`
         title
       }
     }
-    allMarkdownRemark(sort: { fields: [frontmatter___date], order: DESC }) {
+    blog: allMarkdownRemark(
+      filter: {
+        fileAbsolutePath: {regex: "/activity/blog/"}
+      }
+    ) {
       edges {
         node {
-          excerpt
-          fields {
-            slug
-          }
           frontmatter {
-            date(formatString: "MMMM DD, YYYY")
             title
-            description
+            date
           }
+        }
+      }
+    }
+    selfIntro: allMarkdownRemark(
+      filter: {
+        fileAbsolutePath: {regex: "/self-intoroduce/"}
+      }
+    ) {
+      edges {
+        node {
+          frontmatter {
+            name
+            job
+            sex
+            birth_date
+            address
+          }
+          html
         }
       }
     }
     top: file(absolutePath: { regex: "/top.jpg/" }) {
       childImageSharp {
         fixed(width: 1200) {
+          ...GatsbyImageSharpFixed
+        }
+      }
+    }
+    pro: file(absolutePath: { regex: "/profile.jpg/" }) {
+      childImageSharp {
+        fixed(width: 128, height: 128) {
           ...GatsbyImageSharpFixed
         }
       }
