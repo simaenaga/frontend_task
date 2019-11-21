@@ -241,6 +241,113 @@ export const pageQuery = graphql`
         }
       }
     }
+    education: allMarkdownRemark(
+      filter: {
+        fileAbsolutePath: {regex: "/education.md/"}
+      }
+    ) {
+      edges {
+        node {
+          frontmatter {
+            now
+            now_name
+            pre_one
+            pre_one_name
+          }
+        }
+      }
+    }
+    experience: allMarkdownRemark(
+      filter: {
+        fileAbsolutePath: {regex: "/experience.md/"}
+      }
+    ) {
+      edges {
+        node {
+          frontmatter {
+            now
+            name
+            description
+          }
+        }
+      }
+    }
+    pq: allMarkdownRemark(
+      filter: {
+        fileAbsolutePath: {regex: "/personal_qualities.md/"}
+      }
+    ) {
+      edges {
+        node {
+          frontmatter {
+            item1
+            item1_per
+            item2
+            item2_per
+            item3
+            item3_per
+            item4
+            item4_per
+            item5
+            item5_per
+          }
+          html
+        }
+      }
+    }
+    skill:  allMarkdownRemark(
+      filter: {
+        fileAbsolutePath: {regex: "/skill.md/"}
+      }
+    ) {
+      edges {
+        node {
+          frontmatter {
+            JS
+            JS_description
+            HTML_and_CSS
+            HC_description
+            Java
+            Java_description
+            Ruby
+            Ruby_description
+            React_Redux
+            RR_description
+            Unity
+            Unity_description
+          }
+        }
+      }
+    }
+    blog:  allMarkdownRemark(
+      filter: {
+        fileAbsolutePath: {regex: "/activity/blog/"}
+      }
+    ) {
+      edges {
+        node {
+          frontmatter {
+            title
+            description
+          }
+        }
+      }
+    }
+    interests:  allMarkdownRemark(
+      filter: {
+        fileAbsolutePath: {regex: "/activity/interests/"}
+      }
+    ) {
+      edges {
+        node {
+          frontmatter {
+            name
+            discription1
+            discription2
+          }
+        }
+      }
+    }
     top: file(absolutePath: { regex: "/top.jpg/" }) {
       childImageSharp {
         fixed(width: 1200) {
