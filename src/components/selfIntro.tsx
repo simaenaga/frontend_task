@@ -27,7 +27,7 @@ interface SelfIntroProps {
 const Wrapper = styled.div`
     position: relative;
 `
-const NText = styled.p`
+const NameText = styled.h1`
     position: absolute;
     color: #353559;
     font-weight: bold;
@@ -84,7 +84,8 @@ const SelfIntroText = styled.div`
     line-height: 28px;
     color: #353559;
 `
-const NameAndFriganaText = styled.p`
+const NameAndFriganaText = styled.h2`
+    margin: 0;
     position: absolute;
     width: 611px;
     height: 25px;
@@ -93,6 +94,7 @@ const NameAndFriganaText = styled.p`
     font-weight: 500;
     font-size: 16px;
     line-height: 19px;
+    font-family: Roboto;
 `
 const DiscriptionTitle = styled.div`
     position: absolute;
@@ -128,7 +130,7 @@ class SelfIntro extends React.Component<SelfIntroProps> {
                     <ProImage fixed={this.props.pro}
                         alt="profile"
                     />
-                    <NText>{data.frontmatter.name}</NText> 
+                    <NameText>{data.frontmatter.name}</NameText> 
                     <JText>{data.frontmatter.job}</JText> 
                 </ProBox>
                 <SelfIntroText dangerouslySetInnerHTML={{ __html: data.html }} />
