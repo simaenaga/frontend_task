@@ -168,8 +168,8 @@ class BlogIndex extends React.Component<BlogIndexProps> {
         />
         <SEO title="All posts" />
         <Work />
-        <Detail />
-        <Activity />
+        <Detail experience={data.experience.edges[0]} education={data.education.edges[0]} skill={data.skill.edges[0]} pq={data.pq.edges[0]}/>
+        <Activity blog={data.blog} interests={data.interests}/>
         <Sns />
         {/* {posts.map(({ node }) => {
           const title = node.frontmatter.title || node.fields.slug
