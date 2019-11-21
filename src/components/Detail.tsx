@@ -237,6 +237,8 @@ class Detail extends React.Component<DetailProps> {
       const edu = this.props.education.node.frontmatter
       const skill = this.props.skill.node.frontmatter
       const pq = this.props.pq
+      const pqItem = pq.node.frontmatter
+      const per = pqItem.item1_per + pqItem.item2_per + pqItem.item3_per + pqItem.item4_per + pqItem.item5_per
         return (
             <DetailBox>
                 <ContentBox>
@@ -278,6 +280,12 @@ class Detail extends React.Component<DetailProps> {
                   <ul>
                     <List><div dangerouslySetInnerHTML={{ __html: pq.node.html }}/></List>
                   </ul>
+                  {per}
+                  {pqItem.item1}<progress max="100" value={pqItem.item1_per}/>
+                  {pqItem.item2}<progress max="100" value={pqItem.item2_per}/>
+                  {pqItem.item3}<progress max="100" value={pqItem.item3_per}/>
+                  {pqItem.item4}<progress max="100" value={pqItem.item4_per}/>
+                  {pqItem.item5}<progress max="100" value={pqItem.item5_per}/>
                 </ContentBox>
             </DetailBox>
         )
