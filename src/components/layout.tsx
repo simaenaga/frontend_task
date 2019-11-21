@@ -1,10 +1,13 @@
 import * as React from "react";
+import { library } from '@fortawesome/fontawesome-svg-core'
 
 import { rhythm, scale } from "../utils/typography"
 import styled from 'styled-components'
 import Image, { FixedObject } from "gatsby-image"
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
+import { faAngleUp } from '@fortawesome/free-solid-svg-icons'
 
-
+library.add(faAngleUp)
 const Footer = styled.div`
     height: 64px;
     background: #353559;
@@ -19,30 +22,47 @@ const Wrapper = styled.div`
 interface LayoutProps {
 }
 
+const UpWrapper = styled.div`
+  position: relative;
+  background-color: #EF75BE;
+  width: 64px;
+  height: 64px;
+  border-radius: 50%;
+  bottom: 32px;
+  right: 93px;
+  display: block;
+  float: right; 
+  text-align: center;
+`
+const Icon = styled(FontAwesomeIcon)`
+  top: 10px;
+  font-size: 44px;
+  color: white;
+`
+
+const Up = () =>{
+  return <UpWrapper><Icon icon="angle-up"/></UpWrapper>
+}
+
 class Layout extends React.Component<LayoutProps> {
-  handleOnClick = () => {
-    const scrollTop = (duration) => {
-      const target = document.getElementById("top-return");
+  handleOnClick = (e) => {
+      console.log("aaa")
+      e.preventDefault();
+      const duration: number = 300;
+      let currentY: number = window.pageYOffset; 
+      const step: number = duration/currentY > 1 ? 10 : 100;
+      const timeStep: number = duration/currentY * step;
 
-      target.addEventListener('click', function() {
-        let currentY = window.pageYOffset; 
-        const step = duration/currentY > 1 ? 10 : 100;
-        const timeStep = duration/currentY * step;
-
-        const scrollUp = () => {
-          currentY = window.pageYOffset;
-          if(currentY === 0) {
-            clearInterval(intervalID);
-          } else {
-            scrollBy( 0, -step );
-          }
+      const scrollUp = () => {
+        currentY = window.pageYOffset;
+        if(currentY === 0) {
+          clearInterval(intervalID);
+        } else {
+          scrollBy( 0, -step );
         }
+      }
 
-        const intervalID = setInterval(scrollUp, timeStep);
-      });
-    }
-
-    scrollTop(500);
+      const intervalID: NodeJS.Timeout = setInterval(scrollUp, timeStep);
   }
   render() {
     const { children } = this.props
@@ -50,7 +70,7 @@ class Layout extends React.Component<LayoutProps> {
     return (
       <Wrapper>
         <main>{children}</main>
-        {/* <button id="top-return" onClick={this.handleOnClick}></button> */}
+        <div onClick={this.handleOnClick}><Up/></div>
         <Footer/>
       </Wrapper>
     )
