@@ -37,6 +37,76 @@ interface SelfIntroType {
     html: HTMLElement
   }
 }
+interface EducationType {
+  node: {
+    frontmatter:{
+      now: string,
+      now_name: string,
+      pre_one: string,
+      pre_one_name: string
+    }
+  }
+}
+interface ExperienceType {
+  node: {
+      frontmatter:{
+      now: string,
+      name: string,
+      description: string
+    }
+  }
+}
+
+interface SkillType {
+  node:{
+      frontmatter:{
+      JS: number,
+      JS_description: string,
+      HTML_and_CSS: number,
+      HC_description: string,
+      Java: number,
+      Java_description: string,
+      Ruby: number,
+      Ruby_description: string,
+      React_Redux: number,
+      RR_description: string,
+      Unity: number,
+      Unity_description: string
+    }
+  }
+}
+
+interface PQType {
+  node: {
+    frontmatter: {
+      item1: string,
+      item1_per: number,
+      item2:string,
+      item2_per: number,
+      item3:string,
+      item3_per: number,
+      item4:string,
+      item4_per: number,
+      item5:string,
+      item5_per: number,
+    },
+    html: string
+  }
+}
+interface BlogType {
+  node: {frontmatter:{
+    title: string,
+    date: Date
+  }}
+}
+
+interface InterestType {
+  node: {frontmatter:{
+    name: string,
+    discription1: string,
+    discription2: string
+  }}
+}
 interface BlogIndexProps {
   data: {
     site: {
@@ -50,6 +120,14 @@ interface BlogIndexProps {
     selfIntro: {
       edges: SelfIntroType[]
     },
+
+      interests: { edges: InterestType[]},
+      blog: { edges: BlogType[]},
+
+      education: { edges: EducationType[] },
+      experience: { edges: ExperienceType[]},
+      skill: { edges: SkillType[]},
+      pq: { edges: PQType[]},
     top: {
       childImageSharp: {
         fixed
