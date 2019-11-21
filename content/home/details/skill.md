@@ -1,14 +1,14 @@
 ---
 JS: 2
-JS-description: TypeScript
-HTML/CSS: 2
-HC-description: 
+JS_description: TypeScript
+HTML_and_CSS: 2
+HC_description: ""
 Java: 1
-Java-description: 参考書読みながら7並べ作った
+Java_description: 参考書読みながら7並べ作った
 Ruby: 2
-Ruby-description: Capybaraでテストコード書いた
-React+Redux: 2
-RR-description: 
+Ruby_description: Capybaraでテストコード書いた
+React_Redux: 2
+RR_description: "aaa"
 Unity: 1
-Unity-description: ゼミで少しだけ触った
+Unity_description: ゼミで少しだけ触った
 ---
