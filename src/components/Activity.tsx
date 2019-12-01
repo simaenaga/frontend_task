@@ -23,8 +23,8 @@ interface BlogType {
 interface InterestType {
   node: {frontmatter:{
     name: string,
-    discription1: string,
-    discription2: string
+    description1: string,
+    description2: string
   }}
 }
 
@@ -37,16 +37,16 @@ class Activity extends React.Component<ActivityProps> {
     render(){
       const interest = this.props.interests.edges
       const blog = this.props.blog.edges
-      blog.sort(function(a, b) {
-        if (a.node.frontmatter.date > b.node.frontmatter.date) {
-          return 1;
-        } else {
-          return -1;
-        }
-      })
-      blog.map(b => {
-        console.log(b.node.frontmatter.date)
-      })
+      // blog.sort(function(a, b) {
+      //   if (a.node.frontmatter.date > b.node.frontmatter.date) {
+      //     return 1;
+      //   } else {
+      //     return -1;
+      //   }
+      // })
+      // blog.map(b => {
+      //   console.log(b.node.frontmatter.date)
+      // })
         return (
             <ActivityBox>
               <FontAwesomeIcon icon="pencil-alt"/>
@@ -54,7 +54,7 @@ class Activity extends React.Component<ActivityProps> {
                 const i = interest.node.frontmatter
                 return(
                 <div><div>{i.name}</div>
-                <div>{i.discription1}</div></div>)
+                <div>{i.description1}</div></div>)
               })}
               <FontAwesomeIcon icon="heart"/>
 

@@ -103,9 +103,15 @@ interface BlogType {
 interface InterestType {
   node: {frontmatter:{
     name: string,
-    discription1: string,
-    discription2: string
+    description1: string,
+    description2: string
   }}
+}
+interface Wr{
+  node: {fields: { slug:string },
+        frontmatter: {
+          name: string
+        }}
 }
 interface BlogIndexProps {
   data: {
@@ -114,20 +120,18 @@ interface BlogIndexProps {
         title: string
       }
     },
-    // allMarkdownRemark: {
-    //   edges: Edge[]
-    // },
+    work?: {edges:Wr[]},
     selfIntro: {
       edges: SelfIntroType[]
     },
 
-      interests: { edges: InterestType[]},
-      blog: { edges: BlogType[]},
+    interests: { edges: InterestType[]},
+    blog: { edges: BlogType[]},
 
-      education: { edges: EducationType[] },
-      experience: { edges: ExperienceType[]},
-      skill: { edges: SkillType[]},
-      pq: { edges: PQType[]},
+    education: { edges: EducationType[] },
+    experience: { edges: ExperienceType[]},
+    skill: { edges: SkillType[]},
+    pq: { edges: PQType[]},
     top: {
       childImageSharp: {
         fixed
@@ -141,15 +145,6 @@ interface BlogIndexProps {
   },
   location: Location
 }
-
-const Blogtitle = styled.h3`
-  margin-bottom: ${rhythm(1 / 4)};
-`
-const Bloglink = styled(Link)`
-  box-shadow: none;
-  color: #ff981a;
-  /* text-decoration: none; */
-`
 
 
 class BlogIndex extends React.Component<BlogIndexProps> {
@@ -166,8 +161,8 @@ class BlogIndex extends React.Component<BlogIndexProps> {
           pro={data.pro.childImageSharp.fixed}
           selfIntro={data.selfIntro.edges}
         />
-        <SEO title="All posts" />
-        <Work />
+        <SEO title={data.selfIntro.edges[0].node.frontmatter.name} />
+        <Work work={data.work} />
         <Detail experience={data.experience.edges[0]} education={data.education.edges[0]} skill={data.skill.edges[0]} pq={data.pq.edges[0]}/>
         <Activity blog={data.blog} interests={data.interests}/>
         <Sns />
@@ -208,9 +203,30 @@ export const pageQuery = graphql`
         title
       }
     }
+    work: allMarkdownRemark(
+      filter: {
+        fileAbsolutePath: {regex: "/main/"}
+      }
+    )  {
+    edges {
+      node {
+        frontmatter {
+          name
+        }
+        fields {
+          slug
+        }
+      }
+    }
+  }
+  
     blog: allMarkdownRemark(
       filter: {
         fileAbsolutePath: {regex: "/activity/blog/"}
+      }
+      sort: {
+        fields: [frontmatter___date]
+        order: DESC
       }
     ) {
       edges {
@@ -319,20 +335,6 @@ export const pageQuery = graphql`
         }
       }
     }
-    blog:  allMarkdownRemark(
-      filter: {
-        fileAbsolutePath: {regex: "/activity/blog/"}
-      }
-    ) {
-      edges {
-        node {
-          frontmatter {
-            title
-            description
-          }
-        }
-      }
-    }
     interests:  allMarkdownRemark(
       filter: {
         fileAbsolutePath: {regex: "/activity/interests/"}
@@ -342,8 +344,8 @@ export const pageQuery = graphql`
         node {
           frontmatter {
             name
-            discription1
-            discription2
+            description1
+            description2
           }
         }
       }

@@ -6,6 +6,7 @@ import { faChevronRight } from '@fortawesome/free-solid-svg-icons'
 import { rhythm, scale } from "../utils/typography"
 import styled from 'styled-components'
 import Image, { FixedObject } from "gatsby-image"
+import { Link } from "gatsby";
 library.add(faChevronRight)
 const WorkBox = styled.div`
     height: 805px;
@@ -43,7 +44,7 @@ const Icon = styled(FontAwesomeIcon)`
     text-align: center;
     font-size: 14px;
 `
-const WorkItem = styled.div`
+const WorkItem = styled(Link)`
     margin-left:157px;
     width: 273px;
     height: 423px;
@@ -52,20 +53,34 @@ const ItemBox = styled.div`
     display: -webkit-flex;
     display: flex;
 `
-
-class Work extends React.Component {
+interface Wr{
+    node: {fields: { slug:string },
+          frontmatter: {
+            name: string
+          }}
+  }
+interface WorkProps {
+    work:{ edges:Wr[]}
+}
+class Work extends React.Component<WorkProps> {
     render(){
+        const work = this.props.work.edges
         return (
             <WorkBox>
                 <Title>WORKS</Title>
                 <Overview>制作実績など</Overview>
                 <ItemBox>
-                <WorkItem>
+                <WorkItem to={work[0].node.fields.slug}>
+                <Icon icon="chevron-right"/>
+                </WorkItem>
+                <WorkItem to={work[1].node.fields.slug}>
+                <Icon icon="chevron-right"/>
+                </WorkItem>
+                <WorkItem to={work[2].node.fields.slug}>
                 <Icon icon="chevron-right"/>
                 </WorkItem>
                 </ItemBox>
-                
-
+               
                 {/* <i class="fas fa-chevron-right"></i> */}
             </WorkBox>
         )

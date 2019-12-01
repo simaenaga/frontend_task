@@ -231,6 +231,27 @@ const STitle = styled.p`
   font-size: 14px;
   line-height: 28px;
 `
+const ItemBox = styled.div`
+  display: flex;
+  flex-direction: column;
+  flex-wrap: wrap;
+`
+const Item = styled.div``
+
+const PqBar = styled.progress`
+  position: relative;
+  left: 50px;
+  height: 16px;
+  width: 250px;
+  overflow: hidden;
+  border-radius: 0;
+`
+const PqName = styled.p`
+  width:100px;
+  display: inline-block;
+  text-align: right;
+`
+
 class Detail extends React.Component<DetailProps> {
     render(){
       const experience = this.props.experience.node.frontmatter
@@ -280,12 +301,15 @@ class Detail extends React.Component<DetailProps> {
                   <ul>
                     <List><div dangerouslySetInnerHTML={{ __html: pq.node.html }}/></List>
                   </ul>
-                  {per}
-                  {pqItem.item1}<progress max="100" value={pqItem.item1_per}/>
-                  {pqItem.item2}<progress max="100" value={pqItem.item2_per}/>
-                  {pqItem.item3}<progress max="100" value={pqItem.item3_per}/>
-                  {pqItem.item4}<progress max="100" value={pqItem.item4_per}/>
-                  {pqItem.item5}<progress max="100" value={pqItem.item5_per}/>
+                  {per/5}
+                  <ItemBox>
+        <Item><PqName>{pqItem.item1}</PqName><PqBar max="100" value={pqItem.item1_per}>{pqItem.item1_per}%</PqBar></Item>
+                  <Item><PqName>{pqItem.item2}</PqName><PqBar max="100" value={pqItem.item2_per}/></Item>
+                  <Item><PqName>{pqItem.item3}</PqName><PqBar max="100" value={pqItem.item3_per}/></Item>
+                  <Item><PqName>{pqItem.item4}</PqName><PqBar max="100" value={pqItem.item4_per}/></Item>
+                  <Item><PqName>{pqItem.item5}</PqName><PqBar max="100" value={pqItem.item5_per}/></Item>
+                  </ItemBox>
+                  
                 </ContentBox>
             </DetailBox>
         )

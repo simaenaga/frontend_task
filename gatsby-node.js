@@ -4,13 +4,15 @@ const { createFilePath } = require(`gatsby-source-filesystem`)
 exports.createPages = async ({ graphql, actions }) => {
   const { createPage } = actions
 
-  const blogPost = path.resolve(`./src/templates/blog-post.tsx`)
+  const work = path.resolve(`./src/templates/work.tsx`)
   const result = await graphql(
     `
       {
         allMarkdownRemark(
-          sort: { fields: [frontmatter___date], order: DESC }
           limit: 1000
+          filter: {
+            fileAbsolutePath: {regex: "/main/"}
+          }
         ) {
           edges {
             node {
@@ -18,7 +20,7 @@ exports.createPages = async ({ graphql, actions }) => {
                 slug
               }
               frontmatter {
-                title
+                name
               }
             }
           }
@@ -31,18 +33,20 @@ exports.createPages = async ({ graphql, actions }) => {
     throw result.errors
   }
 
-  // Create blog posts pages.
-  const posts = result.data.allMarkdownRemark.edges
+  // create Work
+  const works = result.data.allMarkdownRemark.edges
 
-  posts.forEach((post, index) => {
-    const previous = index === posts.length - 1 ? null : posts[index + 1].node
-    const next = index === 0 ? null : posts[index - 1].node
-
+  works.forEach((w, index) => {
+    const previous = index === works.length - 1 ? works[0].node : works[index + 1].node
+    const next = index === 0 ? works[works.length - 1].node : works[index - 1].node
+    const bic = w.node.fields.slug.slice(0, -5) + "be_in_charge/"
+    console.log(bic)
     createPage({
-      path: post.node.fields.slug,
-      component: blogPost,
+      path: w.node.fields.slug,
+      component: work,
       context: {
-        slug: post.node.fields.slug,
+        slug: w.node.fields.slug,
+        bic: bic,
         previous,
         next,
       },

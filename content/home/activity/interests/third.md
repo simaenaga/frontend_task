@@ -1,5 +1,5 @@
 ---
 name: ラジオ
-discription1: 発信する方
-discription2: お絵描きしながらとか
+description1: 発信する方
+description2: お絵描きしながらとか
 ---
