@@ -141,6 +141,21 @@ interface BlogIndexProps {
       childImageSharp: {
         fixed
       }
+    },
+    hp: {
+      childImageSharp: {
+        fixed
+      }
+    },
+    electron: {
+      childImageSharp: {
+        fixed
+      }
+    },
+    zemi: {
+      childImageSharp: {
+        fixed
+      }
     }
   },
   location: Location
@@ -152,7 +167,7 @@ class BlogIndex extends React.Component<BlogIndexProps> {
     const { data } = this.props
     // const siteTitle = data.site.siteMetadata.title
     // const posts = data.allMarkdownRemark.edges
-
+    console.log(data)
     return (
       <div>
       <Layout>
@@ -161,8 +176,8 @@ class BlogIndex extends React.Component<BlogIndexProps> {
           pro={data.pro.childImageSharp.fixed}
           selfIntro={data.selfIntro.edges}
         />
-        <SEO title={data.selfIntro.edges[0].node.frontmatter.name} />
-        <Work work={data.work} />
+        <SEO/>
+        <Work work={data.work} name={data.selfIntro.edges[0].node.frontmatter.name} hp={data.hp} electron={data.electron} zemi={data.zemi}/>
         <Detail experience={data.experience.edges[0]} education={data.education.edges[0]} skill={data.skill.edges[0]} pq={data.pq.edges[0]}/>
         <Activity blog={data.blog} interests={data.interests}/>
         <Sns />
@@ -358,6 +373,34 @@ export const pageQuery = graphql`
       }
     }
     pro: file(absolutePath: { regex: "/profile.jpg/" }) {
+      childImageSharp {
+        fixed(width: 128, height: 128) {
+          ...GatsbyImageSharpFixed
+        }
+      }
+    }
+    hp: file(absolutePath: { regex: "/assets/homepage/" }) {
+      childImageSharp {
+        fixed(width: 275, height: 275) {
+          ...GatsbyImageSharpFixed
+        }
+      }
+    }
+    electron: file(absolutePath: { regex: "/assets/electron/" }) {
+      childImageSharp {
+        fixed(width: 275, height: 275) {
+          ...GatsbyImageSharpFixed
+        }
+      }
+    }
+    zemi: file(absolutePath: { regex: "/assets/zemi/" }) {
+      childImageSharp {
+        fixed(width: 275, height: 275) {
+          ...GatsbyImageSharpFixed
+        }
+      }
+    }
+    interests_image: file(absolutePath: { regex: "/assets/interests/" }) {
       childImageSharp {
         fixed(width: 128, height: 128) {
           ...GatsbyImageSharpFixed

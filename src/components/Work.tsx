@@ -45,11 +45,14 @@ const Icon = styled(FontAwesomeIcon)`
     font-size: 14px;
 `
 const WorkItem = styled(Link)`
-    margin-left:157px;
+    text-align: center;
+    margin-right:30px;
     width: 273px;
     height: 423px;
 `
 const ItemBox = styled.div`
+    margin-top: 263px;
+    margin-left:157px;
     display: -webkit-flex;
     display: flex;
 `
@@ -60,7 +63,23 @@ interface Wr{
           }}
   }
 interface WorkProps {
-    work:{ edges:Wr[]}
+    work:{ edges:Wr[]},
+    name: string,
+    hp: {
+    childImageSharp: {
+        fixed
+    }
+    },
+    electron: {
+    childImageSharp: {
+        fixed
+    }
+    },
+    zemi: {
+    childImageSharp: {
+        fixed
+    }
+    }
 }
 class Work extends React.Component<WorkProps> {
     render(){
@@ -70,13 +89,32 @@ class Work extends React.Component<WorkProps> {
                 <Title>WORKS</Title>
                 <Overview>制作実績など</Overview>
                 <ItemBox>
+                {/**slugの値をみて画像の判断してもいいかも */}
                 <WorkItem to={work[0].node.fields.slug}>
+                <Image
+                    fixed={this.props.zemi.childImageSharp.fixed}
+                    alt="top"
+                />
+                zemi<br/>
+                design, coding/javascript..<br/>
                 <Icon icon="chevron-right"/>
                 </WorkItem>
                 <WorkItem to={work[1].node.fields.slug}>
+                <Image
+                    fixed={this.props.hp.childImageSharp.fixed}
+                    alt="top"
+                />
+                hp<br/>
+                design, coding/html, css<br/>
                 <Icon icon="chevron-right"/>
                 </WorkItem>
                 <WorkItem to={work[2].node.fields.slug}>
+                <Image
+                    fixed={this.props.electron.childImageSharp.fixed}
+                    alt="top"
+                />
+                electron<br/>
+                design, coding/electron..<br/>
                 <Icon icon="chevron-right"/>
                 </WorkItem>
                 </ItemBox>

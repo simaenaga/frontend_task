@@ -5,12 +5,14 @@ import Layout from "../components/layout"
 import SEO from "../components/seo"
 // import { rhythm, scale } from "../utils/typography"
 import styled from 'styled-components'
+import Image, { FixedObject } from "gatsby-image"
+
 const Title = styled.h1`
 `
 
 const Border = styled.hr`
 `
-const BlogWrapper = styled.ul`
+const WorksWrapper = styled.ul`
 `
 
 interface WorkTemplateProps {
@@ -28,6 +30,16 @@ interface WorkTemplateProps {
     },
     bic: {
       html:string
+    },
+    img: {
+      childImageSharp: {
+        fixed
+      }
+    },
+    more: {
+      childImageSharp: {
+        fixed
+      }
     }
   },
   pageContext: {
@@ -38,18 +50,17 @@ interface WorkTemplateProps {
     next: {
       fields: { slug: string },
       frontmatter: { name: string }
-    },
-    bic: string,
-    slug: string
+    }
   }
 }
 
 class WorkTemplate extends React.Component<WorkTemplateProps> {
   render() {
-    const b = this.props.pageContext.bic
     const work = this.props.data.work
     const { previous, next } = this.props.pageContext
     const bic = this.props.data.bic.html
+    const data = this.props.data
+    console.log(this.props)
     
     return (
       <Layout>
@@ -57,20 +68,24 @@ class WorkTemplate extends React.Component<WorkTemplateProps> {
           title={work.frontmatter.name}
           description={work.html}
         />
+        <Link to="/" rel="top">Tamie Taniguchi</Link>
         <article>
           <header>
             <Title>
               {work.frontmatter.name}
             </Title>
+            {data.img.childImageSharp && <Image fixed={data.img.childImageSharp.fixed} alt="kari"/>}
+            {data.more.childImageSharp &&             
+            <Image fixed={data.more.childImageSharp.fixed} alt="kari"/>
+            }
             {work.html}
-            {bic}{b}
+            {bic}
           </header>
           <Border />
-          {this.props.pageContext.slug}
         </article>
 
         <nav>
-          <BlogWrapper>
+          <WorksWrapper>
             <li>
               {previous && (
                 <Link to={previous.fields.slug} rel="prev">
@@ -85,7 +100,7 @@ class WorkTemplate extends React.Component<WorkTemplateProps> {
                 </Link>
               )}
             </li>
-          </BlogWrapper>
+          </WorksWrapper>
         </nav>
       </Layout>
     )
@@ -95,7 +110,7 @@ class WorkTemplate extends React.Component<WorkTemplateProps> {
 export default WorkTemplate
 
 export const pageQuery = graphql`
-  query BlogPostBySlug($slug: String!, $bic: String!) {
+  query WorkPostBySlug($slug: String!, $bic: String!, $imgslug: String!, $moreimgslug: String!) {
     site {
       siteMetadata {
         title
@@ -109,6 +124,20 @@ export const pageQuery = graphql`
     }
     bic: markdownRemark(fields: { slug: { regex: $bic } }) {
       html
+    }
+    img: file(absolutePath: { regex: $imgslug } ) {
+      childImageSharp {
+        fixed(width: 275, height: 275) {
+          ...GatsbyImageSharpFixed
+        }
+      }
+    }
+    more: file(absolutePath: { regex: $moreimgslug } ) {
+      childImageSharp {
+        fixed(width: 275, height: 275) {
+          ...GatsbyImageSharpFixed
+        }
+      }
     }
   }
 `

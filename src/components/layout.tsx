@@ -23,7 +23,7 @@ interface LayoutProps {
 }
 
 const UpWrapper = styled.div`
-  position: relative;
+  position: fixed;
   background-color: #EF75BE;
   width: 64px;
   height: 64px;
@@ -45,6 +45,23 @@ const Up = () =>{
 }
 
 class Layout extends React.Component<LayoutProps> {
+  componentDidMount() {
+    window.addEventListener('scroll', e => this.watchCurrentPosition(), true)
+  }
+  componentWillUnmount() {
+    window.removeEventListener('scroll', e => {})
+  }
+
+  watchCurrentPosition() {
+      console.log(this.scrollTop())
+  }
+
+  scrollTop() {
+      return Math.max(
+          window.pageYOffset,
+          document.documentElement.scrollTop,
+          document.body.scrollTop);
+  }
   handleOnClick = (e) => {
       console.log("aaa")
       e.preventDefault();
