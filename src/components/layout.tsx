@@ -35,6 +35,7 @@ const UpWrapper = styled.div`
   text-align: center;
 `
 const Icon = styled(FontAwesomeIcon)`
+  position: relative;
   top: 10px;
   font-size: 44px;
   color: white;
@@ -53,6 +54,12 @@ class Layout extends React.Component<LayoutProps> {
   }
 
   watchCurrentPosition() {
+    let top = document.getElementById("top_button")
+    if(this.scrollTop() >= 600){
+      top.hidden = false
+    }else{
+      top.hidden = true
+    }
       console.log(this.scrollTop())
   }
 
@@ -87,7 +94,7 @@ class Layout extends React.Component<LayoutProps> {
     return (
       <Wrapper>
         <main>{children}</main>
-        <div onClick={this.handleOnClick}><Up/></div>
+        <div id="top_button" onClick={this.handleOnClick}><Up/></div>
         <Footer/>
       </Wrapper>
     )
