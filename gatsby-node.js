@@ -40,7 +40,19 @@ exports.createPages = async ({ graphql, actions }) => {
     const previous = index === works.length - 1 ? works[0].node : works[index + 1].node
     const next = index === 0 ? works[works.length - 1].node : works[index - 1].node
     const bic = w.node.fields.slug.slice(0, -5) + "be_in_charge/"
-    console.log(bic)
+    let moreimgslug = "";
+    let imgslug = "/assets" + w.node.fields.slug.slice(0, -5)
+    console.log(imgslug)
+    let flag = false;
+
+    if(w.node.fields.slug.slice(0, -5)==="/zemi/" && flag === false){
+      flag = true;
+      imgslug = "/zemi1/"
+    }
+    if(w.node.fields.slug.slice(0, -5)==="/zemi/" && flag === true){
+      moreimgslug = "/zemi2/"
+    }
+
     createPage({
       path: w.node.fields.slug,
       component: work,
@@ -49,6 +61,8 @@ exports.createPages = async ({ graphql, actions }) => {
         bic: bic,
         previous,
         next,
+        imgslug,
+        moreimgslug
       },
     })
   })
