@@ -50,18 +50,18 @@ class Activity extends React.Component<ActivityProps> {
         return (
             <ActivityBox>
               <FontAwesomeIcon icon="pencil-alt"/>
-              {interest.map(interest => {
+              {interest.map((interest, index) => {
                 const i = interest.node.frontmatter
                 return(
-                <div><div>{i.name}</div>
+                <div key={index}><div>{i.name}</div>
                 <div>{i.description1}</div></div>)
               })}
               <FontAwesomeIcon icon="heart"/>
 
-              {blog.map(blog => {
+              {blog.map((blog, i) => {
                 const b = blog.node.frontmatter
                 return(
-                <div><div>{b.title}</div>
+                <div key={i}><div>{b.title}</div>
                 <div>{b.date}</div></div>)
               })}
             </ActivityBox>
