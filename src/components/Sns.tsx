@@ -9,13 +9,24 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 const SnsBox = styled.div`
     height: 280px;
     background: rgba(53,53,89, 0.05);
-    display: flex;
+    display: flex; 
+
+    & > a {
+        margin-top: 120px;
+        width: 40px;
+        height: 40px;
+    }
+
+    a:first-child {
+        margin-left: 510px;
+    }
+
+    a:not(:last-child) {
+        margin-right: 30px;
+    }
 `
 library.add(fab)
 const CircleIcon = styled.div`
-    position: relative;
-    top: 120px;
-    left: 540px;
     width: 40px;
     height: 40px;
     border-radius: 50%;
@@ -37,9 +48,6 @@ const Icon = (props) => {
     )
 }
 const FacebookIcon = styled(FontAwesomeIcon)`
-    position: relative;
-    left: 510px;
-    top: 120px;
     color: #EF75BE;
     font-size: 40px;
 `
