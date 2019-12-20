@@ -1,5 +1,5 @@
 ---
-name: 演技
-description1: 
+name: 絵
+description1: 描きたい
 description2:  
 ---

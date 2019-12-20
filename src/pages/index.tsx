@@ -34,7 +34,7 @@ interface SelfIntroType {
       address: string,
       name_and_frigana: string
     },
-    html: HTMLElement
+    html: string
   }
 }
 interface EducationType {
@@ -156,7 +156,22 @@ interface BlogIndexProps {
       childImageSharp: {
         fixed
       }
-    }
+    },
+    radio: {
+      childImageSharp: {
+        fixed
+      }
+    },
+    pen: {
+      childImageSharp: {
+        fixed
+      }
+    },
+    book: {
+      childImageSharp: {
+        fixed
+      }
+    },
   },
   location: Location
 }
@@ -179,7 +194,13 @@ class BlogIndex extends React.Component<BlogIndexProps> {
         <SEO/>
         <Work work={data.work} name={data.selfIntro.edges[0].node.frontmatter.name} hp={data.hp} electron={data.electron} zemi={data.zemi}/>
         <Detail experience={data.experience.edges[0]} education={data.education.edges[0]} skill={data.skill.edges[0]} pq={data.pq.edges[0]}/>
-        <Activity blog={data.blog} interests={data.interests}/>
+        <Activity
+          blog={data.blog} 
+          interests={data.interests} 
+          pen={data.pen.childImageSharp.fixed} 
+          book={data.book.childImageSharp.fixed} 
+          radio={data.radio.childImageSharp.fixed}
+        />
         <Sns />
         {/* {posts.map(({ node }) => {
           const title = node.frontmatter.title || node.fields.slug
@@ -400,7 +421,21 @@ export const pageQuery = graphql`
         }
       }
     }
-    interests_image: file(absolutePath: { regex: "/assets/interests/" }) {
+    pen: file(absolutePath: { regex: "/assets/interests/pen/" }) {
+      childImageSharp {
+        fixed(width: 128, height: 128) {
+          ...GatsbyImageSharpFixed
+        }
+      }
+    }
+    book: file(absolutePath: { regex: "/assets/interests/book/" }) {
+      childImageSharp {
+        fixed(width: 128, height: 128) {
+          ...GatsbyImageSharpFixed
+        }
+      }
+    }
+    radio: file(absolutePath: { regex: "/assets/interests/radio/" }) {
       childImageSharp {
         fixed(width: 128, height: 128) {
           ...GatsbyImageSharpFixed

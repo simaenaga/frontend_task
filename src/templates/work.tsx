@@ -6,14 +6,14 @@ import SEO from "../components/seo"
 // import { rhythm, scale } from "../utils/typography"
 import styled from 'styled-components'
 import Image, { FixedObject } from "gatsby-image"
+import WorkItem from "../components/WorkItem"
 
 const Title = styled.h1`
 `
 
 const Border = styled.hr`
 `
-const WorksWrapper = styled.ul`
-`
+
 
 interface WorkTemplateProps {
   data: {
@@ -40,6 +40,16 @@ interface WorkTemplateProps {
       childImageSharp: {
         fixed
       }
+    },
+    prevImg: {
+      childImageSharp: {
+        fixed
+      }
+    },
+    nextImg: {
+      childImageSharp: {
+        fixed
+      }
     }
   },
   pageContext: {
@@ -54,6 +64,12 @@ interface WorkTemplateProps {
   }
 }
 
+const Nav = styled.nav`
+  position: relative;
+  left: 300px; 
+  text-align: center;
+  display: flex;
+`
 class WorkTemplate extends React.Component<WorkTemplateProps> {
   render() {
     const work = this.props.data.work
@@ -78,30 +94,39 @@ class WorkTemplate extends React.Component<WorkTemplateProps> {
             {data.more.childImageSharp &&             
             <Image fixed={data.more.childImageSharp.fixed} alt="kari"/>
             }
-            {work.html}
-            {bic}
+            <div dangerouslySetInnerHTML={{ __html: work.html }} />
+
+            <div dangerouslySetInnerHTML={{ __html: bic }} />
           </header>
           <Border />
         </article>
 
-        <nav>
-          <WorksWrapper>
-            <li>
-              {previous && (
-                <Link to={previous.fields.slug} rel="prev">
-                  {previous.frontmatter.name}
-                </Link>
-              )}
-            </li>
-            <li>
-              {next && (
-                <Link to={next.fields.slug} rel="next">
-                  {next.frontmatter.name}
-                </Link>
-              )}
-            </li>
-          </WorksWrapper>
-        </nav>
+        <Nav>
+          
+
+          {previous && (
+            <WorkItem 
+              rel="prev"
+              to={previous.fields.slug}
+              fixed={data.prevImg.childImageSharp.fixed}
+              alt="top"
+              name={previous.frontmatter.name}
+              discription="design, coding/javascript, etc."
+                />
+          )}
+
+          {next && (
+            <WorkItem 
+              rel="next"
+              to={next.fields.slug}
+              fixed={data.nextImg.childImageSharp.fixed}
+              alt="top"
+              name={next.frontmatter.name}
+              discription="design, coding/javascript, etc."
+            />
+          )}
+
+        </Nav>
       </Layout>
     )
   }
@@ -110,7 +135,7 @@ class WorkTemplate extends React.Component<WorkTemplateProps> {
 export default WorkTemplate
 
 export const pageQuery = graphql`
-  query WorkPostBySlug($slug: String!, $bic: String!, $imgslug: String!, $moreimgslug: String!) {
+  query WorkPostBySlug($slug: String!, $bic: String!, $imgslug: String!, $moreimgslug: String!, $prevslug: String!, $nextslug: String!) {
     site {
       siteMetadata {
         title
@@ -133,6 +158,20 @@ export const pageQuery = graphql`
       }
     }
     more: file(absolutePath: { regex: $moreimgslug } ) {
+      childImageSharp {
+        fixed(width: 275, height: 275) {
+          ...GatsbyImageSharpFixed
+        }
+      }
+    }
+    prevImg: file(absolutePath: { regex: $prevslug } ) {
+      childImageSharp {
+        fixed(width: 275, height: 275) {
+          ...GatsbyImageSharpFixed
+        }
+      }
+    }
+    nextImg: file(absolutePath: { regex: $nextslug } ) {
       childImageSharp {
         fixed(width: 275, height: 275) {
           ...GatsbyImageSharpFixed

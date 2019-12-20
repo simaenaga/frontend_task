@@ -1,13 +1,10 @@
 import * as React from "react";
-import { library } from '@fortawesome/fontawesome-svg-core'
 
 import { rhythm, scale } from "../utils/typography"
 import styled from 'styled-components'
-import Image, { FixedObject } from "gatsby-image"
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import { faAddressBook } from '@fortawesome/free-solid-svg-icons'
-import { node } from "prop-types";
 
+import Level from "./Level"
+import DetailContent from "./DetailContent"
 
 interface EducationType {
   node: {
@@ -73,34 +70,7 @@ interface DetailProps {
   pq: PQType
 
 }
-const ContentBox = styled.section`
-    width: 50%;
-    height: 50%;
-`
-const CTitle = styled.h3`
-    margin:0;
-    height: 28px;
-    white-space: nowrap;
-    font-family: Roboto;
-    font-weight: bold;
-    font-size: 16px;
-    line-height: 28px;
-    color: #ff981a;
-    display: inline-block;
-    position: relative;
-    top: 114px;
-`
 
-// background: #353559;
-
-const Icon = styled(FontAwesomeIcon)`
-    color: rgba(53,53,89, 0.3);
-    position: relative;
-    top: 114px;
-    margin-right: 14.88px;
-    margin-left: 31px;
-    fill: #fff;
-`
 const DetailBox = styled.div`
     height: 1160px;
     top: 1235px;
@@ -110,148 +80,96 @@ const DetailBox = styled.div`
     -webkit-flex-wrap: wrap;
     flex-wrap: wrap;
 ` 
-library.add(faAddressBook)//あらかじめ使用するアイコンを追加しておく
-const TitleLine = styled.div`
-    position: relative;
-    border: 0.5px solid rgba(53,53,89, 0.3);
-    width: 520px;
-    margin-left: 66px;
-    top: 125px;
-`
-const Title = (props) => {
-  return(
-    <div>
-      <Icon icon="address-book" />
-      <CTitle>{props.children}</CTitle>
-      <TitleLine/>
-    </div>
-  )
-}
-const List = styled.li`
-  color: #353559;
-`
-const Circle = styled.div`
-  background-color: ${props => props.isLignt ? '#ff981a' : 'rgba(53,53,89, 0.3)'} ;
-  width: 8px;
-  height: 8px;
-  border-radius: 50%;
-  margin-left: 6px;
-`
-interface LevelProps {
-  level: number
-}
-const LevelWrapper = styled.div`
-  position: relative;
-  top: 10px;
-  display: flex;
-  width: 70px;
-  margin-left: 59px;
-`
-class Level extends React.Component<LevelProps>{
-  render() {
-    const level = this.props.level
-    let is1stLignt:boolean = false
-    let is2ndLignt:boolean = false
-    let is3rdLignt:boolean = false
-    let is4thLignt:boolean = false
-    let is5thLignt:boolean = false
-
-    if(level == 5){
-      is1stLignt = true
-      is2ndLignt = true
-      is3rdLignt = true
-      is4thLignt = true
-      is5thLignt = true
-    }
-    if(level == 4){
-      is1stLignt = true
-      is2ndLignt = true
-      is3rdLignt = true
-      is4thLignt = true
-      is5thLignt = false
-    }
-    if(level == 3){
-      is1stLignt = true
-      is2ndLignt = true
-      is3rdLignt = true
-      is4thLignt = false
-      is5thLignt = false
-    }
-    if(level == 2){
-      is1stLignt = true
-      is2ndLignt = true
-      is3rdLignt = false
-      is4thLignt = false
-      is5thLignt = false
-    }
-    if(level == 1){
-      is1stLignt = true
-      is2ndLignt = false
-      is3rdLignt = false
-      is4thLignt = false
-      is5thLignt = false
-    }
-    if(level == 0){
-      is1stLignt = false
-      is2ndLignt = false
-      is3rdLignt = false
-      is4thLignt = false
-      is5thLignt = false
-    }
-    return(
-      <LevelWrapper>
-        <Circle isLignt={is1stLignt}/>
-        <Circle isLignt={is2ndLignt}/>
-        <Circle isLignt={is3rdLignt}/>
-        <Circle isLignt={is4thLignt}/>
-        <Circle isLignt={is5thLignt}/>    
-      </LevelWrapper>
-    )
-  }
-}
-const NoneStyleUl = styled.ul`
-  position: relative;
-  left: 60px;
-  top: 150px;
-  list-style: none;
-`
-const SkillList = styled(List)`
-  display: flex;
-`
-const Descliption = styled.p`
-  position:absolute;
-  left: 320px;
-  font-weight: 500;
-  font-size: 14px;
-  line-height: 28px;
-`
-const STitle = styled.p`
-  width: 132px;
-  font-weight: bold;
-  font-size: 14px;
-  line-height: 28px;
-`
 const ItemBox = styled.div`
   display: flex;
   flex-direction: column;
   flex-wrap: wrap;
-`
-const Item = styled.div``
-
-const PqBar = styled.progress`
   position: relative;
-  left: 50px;
-  height: 16px;
-  width: 250px;
-  overflow: hidden;
-  border-radius: 0;
-`
-const PqName = styled.p`
-  width:100px;
-  display: inline-block;
-  text-align: right;
+  top:  100px;
+  left: 200px;
+  font-size: 14px;
+
+  & > div {
+    p {
+      margin: 2px;
+      width:100px;
+      display: inline-block;
+      text-align: right;
+      height:24px;
+    }
+    progress {
+      position: relative;
+      left: 50px;
+      height: 16px;
+      width: 250px;
+      overflow: hidden;
+      border-radius: 0;
+    }
+  }
 `
 
+const ListBox = styled.ul`
+  & > li {
+    color: #353559;
+    position: relative;
+    width: 520px;
+    font-size: 16px;
+    line-height: 28px;
+    left: 53px;
+    top: 150px;
+    
+    .bold {
+      font-weight: bold;
+    }
+  }
+
+  & > li:not(:last-child)::after {
+    content: "";
+    width: 1px;
+    background:black;
+    height: 74px;
+    position: absolute;
+    left: -16px;
+    top: 17px;
+  }
+`
+
+const PercentWrapper = styled.div`
+  position: relative;
+  top: 200px;
+  left: 100px;
+
+  & > span {
+    width: 80px;
+    font-size: 50px;
+  }
+`
+
+
+const SkillLists = styled.ul`
+  position: relative;
+  left: 60px;
+  top: 150px;
+  list-style: none;
+  color: #353559;
+
+  & > li {
+    display: flex;
+    font-size: 14px;
+    line-height: 28px;
+
+    span:first-child {
+      width: 132px;
+      font-weight: bold;
+    }
+
+    span:nth-child(3) {
+      position:absolute;
+      left: 320px;
+      font-weight: 500;
+    }
+  }
+`
 class Detail extends React.Component<DetailProps> {
     render(){
       const experience = this.props.experience.node.frontmatter
@@ -262,55 +180,105 @@ class Detail extends React.Component<DetailProps> {
       const per = pqItem.item1_per + pqItem.item2_per + pqItem.item3_per + pqItem.item4_per + pqItem.item5_per
         return (
             <DetailBox>
-                <ContentBox>
-                  <Title>EXPELIENCE</Title>
-                  <ul>
-                    <List>
-                      {experience.now}
-                      {experience.name}
+                <DetailContent title="EXPELIENCE">
+                  <ListBox>
+                    <li>
+                      <div className="bold">
+                        {experience.now}<br/>
+                        {experience.name}
+                      </div>
+                      
                       {experience.description}
-                    </List>
-                  </ul>
-                </ContentBox>
-                <ContentBox>
-                  <Title>EDUCATION</Title>
-                  <ul>
-                    <List>
-                      {edu.now}
-                      {edu.now_name}
-                    </List>
-                    <List>
-                      {edu.pre_one}
-                      {edu.pre_one_name}
-                    </List>
-                  </ul>
-                </ContentBox>
-                <ContentBox>
-                  <Title>SKILL</Title>
-                  <NoneStyleUl>
-                    <SkillList><STitle>JavaScript</STitle><Level level={skill.JS}/><Descliption>{skill.JS_description}</Descliption></SkillList>
-                    <SkillList><STitle>HTML/CSS</STitle><Level level={skill.HTML_and_CSS}/><Descliption>{skill.HC_description}</Descliption></SkillList>
-                    <SkillList><STitle>Java</STitle><Level level={skill.Java}/><Descliption>{skill.Java_description}</Descliption></SkillList>
-                    <SkillList><STitle>Ruby</STitle><Level level={skill.Ruby}/><Descliption>{skill.Ruby_description}</Descliption></SkillList>
-                    <SkillList><STitle>React/Redux</STitle><Level level={skill.React_Redux}/><Descliption>{skill.RR_description}</Descliption></SkillList>
-                    <SkillList><STitle>Unity</STitle><Level level={skill.Unity}/><Descliption>{skill.Unity_description}</Descliption></SkillList>
-                  </NoneStyleUl>
-                  </ContentBox>
-                <ContentBox>
-                  <Title>PERSONAL QUALITIES</Title>
-                  <ul>
-                    <List><div dangerouslySetInnerHTML={{ __html: pq.node.html }}/></List>
-                  </ul>
-                  {per/5}
+                    </li>
+                  </ListBox>
+                </DetailContent>
+
+                <DetailContent title="EDUCATION">
+                  <ListBox>
+                    <li>
+                      <div className="bold">
+                        {edu.now}<br/>
+                        {edu.now_name}
+                      </div>
+                    </li>
+                    <li>
+                      <div className="bold">
+                        {edu.pre_one}<br/>
+                        {edu.pre_one_name}
+                      </div>
+
+                    </li>
+                  </ListBox>
+                </DetailContent>
+
+                <DetailContent title="SKILL">
+                  <SkillLists>
+                    <li>
+                      <span>JavaScript</span>
+                      <Level level={skill.JS}/>
+                      <span>{skill.JS_description}</span>
+                    </li>
+                    <li>
+                      <span>HTML/CSS</span>
+                      <Level level={skill.HTML_and_CSS}/>
+                      <span>{skill.HC_description}</span>
+                    </li>
+                    <li>
+                      <span>Java</span>
+                      <Level level={skill.Java}/>
+                      <span>{skill.Java_description}</span>
+                    </li>
+                    <li>
+                      <span>Ruby</span>
+                      <Level level={skill.Ruby}/>
+                      <span>{skill.Ruby_description}
+                    </span></li>
+                    <li>
+                      <span>React/Redux</span>
+                      <Level level={skill.React_Redux}/>
+                      <span>{skill.RR_description}</span>
+                    </li>
+                    <li>
+                      <span>Unity</span>
+                      <Level level={skill.Unity}/>
+                      <span>{skill.Unity_description}
+                      </span>
+                    </li>
+                  </SkillLists>
+                </DetailContent>
+
+                <DetailContent title="PERSONAL QUALITIES">
+                  <ListBox>
+                    <li><div dangerouslySetInnerHTML={{ __html: pq.node.html }}/></li>
+                  </ListBox>
+
+                  <PercentWrapper><span>{per/5}</span>%</PercentWrapper>
+
                   <ItemBox>
-        <Item><PqName>{pqItem.item1}</PqName><PqBar max="100" value={pqItem.item1_per}>{pqItem.item1_per}%</PqBar></Item>
-                  <Item><PqName>{pqItem.item2}</PqName><PqBar max="100" value={pqItem.item2_per}/></Item>
-                  <Item><PqName>{pqItem.item3}</PqName><PqBar max="100" value={pqItem.item3_per}/></Item>
-                  <Item><PqName>{pqItem.item4}</PqName><PqBar max="100" value={pqItem.item4_per}/></Item>
-                  <Item><PqName>{pqItem.item5}</PqName><PqBar max="100" value={pqItem.item5_per}/></Item>
+                    <div>
+                      <p>{pqItem.item1}</p>
+                      <progress max="100" value={pqItem.item1_per}/>
+                    </div>
+                    <div>
+                      <p>{pqItem.item2}</p>
+                      <progress max="100" value={pqItem.item2_per}/>
+                    </div>
+                    <div>
+                      <p>{pqItem.item3}</p>
+                      <progress max="100" value={pqItem.item3_per}/>
+                    </div>
+                    <div>
+                      <p>{pqItem.item4}</p>
+                      <progress max="100" value={pqItem.item4_per}/>
+                    </div>
+                    <div>
+                      <p>{pqItem.item5}</p>
+                      <progress max="100" value={pqItem.item5_per}/>
+                    </div>
                   </ItemBox>
-                  
-                </ContentBox>
+
+                </DetailContent>
+
             </DetailBox>
         )
     }

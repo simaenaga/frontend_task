@@ -38,11 +38,14 @@ exports.createPages = async ({ graphql, actions }) => {
 
   works.forEach((w, index) => {
     const previous = index === works.length - 1 ? works[0].node : works[index + 1].node
+    const prevslug = "/assets" + previous.fields.slug.slice(0, -5)
     const next = index === 0 ? works[works.length - 1].node : works[index - 1].node
+    const nextslug = "/assets" + next.fields.slug.slice(0, -5)
+    
     const bic = w.node.fields.slug.slice(0, -5) + "be_in_charge/"
     let moreimgslug = "";
     let imgslug = "/assets" + w.node.fields.slug.slice(0, -5)
-    console.log(imgslug)
+
     let flag = false;
 
     if(w.node.fields.slug.slice(0, -5)==="/zemi/" && flag === false){
@@ -62,7 +65,9 @@ exports.createPages = async ({ graphql, actions }) => {
         previous,
         next,
         imgslug,
-        moreimgslug
+        moreimgslug,
+        prevslug,
+        nextslug
       },
     })
   })

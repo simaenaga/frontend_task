@@ -14,7 +14,7 @@ interface SelfIntroType {
         address: string,
         name_and_frigana: string
       },
-      html: HTMLElement
+      html: string
     }
 }
 
@@ -26,29 +26,42 @@ interface SelfIntroProps {
 
 const Wrapper = styled.div`
     position: relative;
+
+    & h1 {
+        position: absolute;
+        color: #353559;
+        font-weight: bold;
+        bottom: 61px;
+        font-weight: normal;
+        font-size: 24px;
+        line-height: 28px;
+        margin: 0;
+        left: 42px;
+    }
+
+    & > h2 {
+        color: #353559;
+        margin: 0;
+        position: absolute;
+        width: 611px;
+        height: 25px;
+        left: 441px;
+        top: 189px;
+        font-weight: 500;
+        font-size: 16px;
+        line-height: 19px;
+        font-family: Roboto;
+    }
+
+    & .pro {
+        position: absolute;
+        z-index: 100;
+        top: 31px;
+        left: 73px;
+        border-radius: 50%;
+    }
 `
-const NameText = styled.h1`
-    position: absolute;
-    color: #353559;
-    font-weight: bold;
-    bottom: 61px;
-    font-weight: normal;
-    font-size: 24px;
-    line-height: 28px;
-    margin: 0;
-    left: 42px;
-`
-const JText = styled.p`
-    position: absolute;
-    color: #353559;
-    font-weight: bold;
-    bottom: 23px;
-    font-weight: normal;
-    font-size: 14px;
-    line-height: 16px;
-    margin: 0;
-    left: 108px;
-`
+
 const ProBox = styled.div`
     background-color: rgba(255,255,255,0.2);
     position: absolute;
@@ -58,14 +71,19 @@ const ProBox = styled.div`
     height: 276px;
     border: 1px solid #353559;
     box-sizing: border-box;
+
+    & > p {
+        position: absolute;
+        color: #353559;
+        font-weight: bold;
+        bottom: 23px;
+        font-weight: normal;
+        font-size: 14px;
+        line-height: 16px;
+        margin: 0;
+        left: 108px;
+    }
 ` 
-const ProImage = styled(Image)`
-    position: absolute;
-    z-index: 100;
-    top: 31px;
-    left: 73px;
-    border-radius: 50%;
-`
 const Line = styled.div`
     position: absolute;
     z-index: 20;
@@ -84,37 +102,30 @@ const SelfIntroText = styled.div`
     line-height: 28px;
     color: #353559;
 `
-const NameAndFriganaText = styled.h2`
-    margin: 0;
-    position: absolute;
-    width: 611px;
-    height: 25px;
-    left: 441px;
-    top: 189px;
-    font-weight: 500;
-    font-size: 16px;
-    line-height: 19px;
-    font-family: Roboto;
-`
-const DiscriptionTitle = styled.div`
-    position: absolute;
-    width: 147px;
-    height: 126px;
-    left: 442px;
-    top: 224px;
-    font-weight: bold;
-    font-size: 14px;
-    line-height: 28px;
-`
+
 const Discription = styled.div`
-    position: absolute;
-    width: 569px;
-    height: 126px;
-    left: 609px;
-    top: 224px;
-    font-weight: 500;
+    color: #353559;
     font-size: 14px;
     line-height: 28px;
+
+    & .title {
+        position: absolute;
+        width: 147px;
+        height: 126px;
+        left: 442px;
+        top: 224px;
+        font-weight: bold;
+    }
+
+    & .content {
+        position: absolute;
+        width: 569px;
+        height: 126px;
+        left: 609px;
+        top: 224px;
+        font-weight: 500;
+    }
+
 `
 class SelfIntro extends React.Component<SelfIntroProps> {
     render() {
@@ -126,25 +137,32 @@ class SelfIntro extends React.Component<SelfIntroProps> {
                     alt="top"
                 />
                 <Line />
+
                 <ProBox>
-                    <ProImage fixed={this.props.pro}
+                    <Image
+                        fixed={this.props.pro}
                         alt="profile"
+                        className="pro"
                     />
-                    <NameText>{data.frontmatter.name}</NameText> 
-                    <JText>{data.frontmatter.job}</JText> 
+                    <h1>{data.frontmatter.name}</h1> 
+                    <p>{data.frontmatter.job}</p> 
                 </ProBox>
+
                 <SelfIntroText dangerouslySetInnerHTML={{ __html: data.html }} />
-                <NameAndFriganaText>{data.frontmatter.name_and_frigana}</NameAndFriganaText>
-                <DiscriptionTitle>
-                    性別<br/>
-                    生年月日<br/>
-                    現住所<br/>
-                </DiscriptionTitle>
+                <h2>{data.frontmatter.name_and_frigana}</h2>
                 <Discription>
-                    {data.frontmatter.sex}<br/>
-                    {data.frontmatter.birth_date}<br/>
-                    {data.frontmatter.address}<br/>
+                    <div className="title">
+                        性別<br/>
+                        生年月日<br/>
+                        現住所<br/>
+                    </div>
+                    <div className="content">
+                        {data.frontmatter.sex}<br/>
+                        {data.frontmatter.birth_date}<br/>
+                        {data.frontmatter.address}<br/>
+                    </div>
                 </Discription>
+                
             </Wrapper>
         )
     }

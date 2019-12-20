@@ -8,17 +8,8 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faAngleUp } from '@fortawesome/free-solid-svg-icons'
 
 library.add(faAngleUp)
-const Footer = styled.div`
-    height: 64px;
-    background: #353559;
-    bottom: 0px;
-`
-const Wrapper = styled.div`
-  margin: auto;
-  width: 1200px;
-  font-family: Roboto;
-  font-style: normal;
-`
+
+
 interface LayoutProps {
 }
 
@@ -33,17 +24,34 @@ const UpWrapper = styled.div`
   display: block;
   float: right; 
   text-align: center;
-`
-const Icon = styled(FontAwesomeIcon)`
-  position: relative;
-  top: 10px;
-  font-size: 44px;
-  color: white;
+
+  & > .icon {
+    position: relative;
+    top: 10px;
+    font-size: 44px;
+    color: white;
+  }
 `
 
+
 const Up = () =>{
-  return <UpWrapper><Icon icon="angle-up"/></UpWrapper>
+  return <UpWrapper><FontAwesomeIcon icon="angle-up" className="icon"/></UpWrapper>
 }
+
+
+const Wrapper = styled.div`
+  margin: auto;
+  width: 1200px;
+  font-family: Roboto;
+  font-style: normal;
+  overflow-x: hidden;
+
+  & > .footer {
+    height: 64px;
+    background: #353559;
+    bottom: 0px;
+  }
+`
 
 class Layout extends React.Component<LayoutProps> {
   componentDidMount() {
@@ -60,7 +68,6 @@ class Layout extends React.Component<LayoutProps> {
     }else{
       top.hidden = true
     }
-      console.log(this.scrollTop())
   }
 
   scrollTop() {
@@ -95,7 +102,7 @@ class Layout extends React.Component<LayoutProps> {
       <Wrapper>
         <main>{children}</main>
         <div id="top_button" onClick={this.handleOnClick}><Up/></div>
-        <Footer/>
+        <div className="footer"/>
       </Wrapper>
     )
   }

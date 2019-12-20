@@ -5,18 +5,52 @@ import { rhythm, scale } from "../utils/typography"
 import styled from 'styled-components'
 import Image, { FixedObject } from "gatsby-image"
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
+
 const SnsBox = styled.div`
     height: 280px;
     background: rgba(53,53,89, 0.05);
+    display: flex;
 `
 library.add(fab)
+const CircleIcon = styled.div`
+    position: relative;
+    top: 120px;
+    left: 540px;
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    background: #EF75BE;
+    margin-right: 30px;
+`
+const WhiteIcon = styled(FontAwesomeIcon)`
+    color: white;
+    font-size: 25px;
+    position: relative;
+    top: 5px;
+    left: 8px;
+`
+const Icon = (props) => {
+    return(
+        <CircleIcon>
+        <WhiteIcon icon={props.icon}/>
+        </CircleIcon>
+    )
+}
+const FacebookIcon = styled(FontAwesomeIcon)`
+    position: relative;
+    left: 510px;
+    top: 120px;
+    color: #EF75BE;
+    font-size: 40px;
+`
+
 class Sns extends React.Component {
     render(){
         return (
             <SnsBox>
-                <FontAwesomeIcon icon={['fab', 'facebook']}/>
-                <FontAwesomeIcon icon={['fab', 'instagram']}/>
-                <FontAwesomeIcon icon={['fab', 'twitter']}/>
+                <a href="https://www.facebook.com/"><FacebookIcon icon={['fab', 'facebook']}/></a>
+                <a href="https://www.instagram.com/"><Icon icon={['fab', 'instagram']}/></a>
+                <a href="https://twitter.com/home"><Icon icon={['fab', 'twitter']}/></a>
             </SnsBox>
         )
     }
