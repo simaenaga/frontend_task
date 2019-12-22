@@ -138,13 +138,36 @@ const PercentWrapper = styled.div`
   position: relative;
   top: 200px;
   left: 100px;
+  z-index:100;
 
   & > span {
     width: 80px;
     font-size: 50px;
   }
+
+`
+const Per = styled.div`
+    background: black;
+    border-radius: 100% 0 0 0;
+    width: 100px;
+    height: 100px;
+    position: relative;
+
 `
 
+const PerCircle = styled.div`
+z-index:1;
+      background: pink;
+      width: 200px;
+      height: 200px;
+      border-radius: 50%;
+      margin-top: 50px;
+      margin-left: 20px;
+
+      &:hover + .hukidashi {
+        display: block;
+      }
+`
 
 const SkillLists = styled.ul`
   position: relative;
@@ -170,6 +193,31 @@ const SkillLists = styled.ul`
     }
   }
 `
+const PerSmallCircle = styled.div`
+  width: 150px;
+  height: 150px;
+  border-radius: 50%;
+  background: white;
+  position: relative;
+  top: -75px;
+  left: 25px;
+`
+const HukidashiStyled = styled.div`
+  display: none;
+
+  & > div {
+    
+  }
+`
+
+const Hukidashi = (props) => {
+  return(
+    <HukidashiStyled>
+      {props.children}
+      <div/>
+    </HukidashiStyled>
+  )
+}
 class Detail extends React.Component<DetailProps> {
     render(){
       const experience = this.props.experience.node.frontmatter
@@ -253,7 +301,10 @@ class Detail extends React.Component<DetailProps> {
                   </ListBox>
 
                   <PercentWrapper><span>{per/5}</span>%</PercentWrapper>
-
+                  
+                  <PerCircle><Per></Per>
+                  <PerSmallCircle/></PerCircle>
+                  <Hukidashi>75%</Hukidashi>
                   <ItemBox>
                     <div>
                       <p>{pqItem.item1}</p>

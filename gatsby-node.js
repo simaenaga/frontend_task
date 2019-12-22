@@ -45,7 +45,6 @@ exports.createPages = async ({ graphql, actions }) => {
     const bic = w.node.fields.slug.slice(0, -5) + "be_in_charge/"
     let moreimgslug = "";
     let imgslug = "/assets" + w.node.fields.slug.slice(0, -5)
-
     let flag = false;
 
     if(w.node.fields.slug.slice(0, -5)==="/zemi/" && flag === false){

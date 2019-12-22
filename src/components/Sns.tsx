@@ -15,6 +15,7 @@ const SnsBox = styled.div`
         margin-top: 120px;
         width: 40px;
         height: 40px;
+        box-shadow: none;
     }
 
     a:first-child {

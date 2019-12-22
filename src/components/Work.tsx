@@ -108,6 +108,7 @@ class Work extends React.Component<WorkProps> {
                     }
                     return(
                         <WorkItem 
+                            key={name}
                             to={to}
                             fixed={fixed}
                             alt="top"

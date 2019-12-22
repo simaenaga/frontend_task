@@ -79,7 +79,7 @@ const InterestBox = styled.div`
     text-align: center;
     
     h3:first-child {
-      margin: 0%;
+      margin: 7px 0;
       font-family: Roboto;
       font-size: 16px;
     }
@@ -182,9 +182,25 @@ class Activity extends React.Component<ActivityProps> {
               <Content icon="heart" title="INTEREST">
 
                 <ImageWrapper>
-                  <Image fixed={this.props.book} className="img"/>
-                  <Image fixed={this.props.pen} className="img"/>
-                  <Image fixed={this.props.radio} className="img"/>
+                  {interest.map(interest => {
+                    const i = interest.node.frontmatter
+                    let fixed: FixedObject = null
+                    fixed = this.props.pen
+                 
+                    if(i.name=="絵"){
+                      fixed = this.props.pen
+                    }
+                    if(i.name=="ラジオ"){
+                      fixed = this.props.radio
+                    }
+                    if(i.name=="小説"){
+                      fixed = this.props.book
+                    }
+                    return(
+                      <Image fixed={fixed} className="img" key={i.name}/>
+                    )
+
+                  })}
                 </ImageWrapper>
 
                 <InterestBox>

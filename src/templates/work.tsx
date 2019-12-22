@@ -1,5 +1,6 @@
 import * as React from "react";
 import { Link, graphql } from "gatsby"
+import { library } from '@fortawesome/fontawesome-svg-core'
 
 import Layout from "../components/layout"
 import SEO from "../components/seo"
@@ -7,13 +8,10 @@ import SEO from "../components/seo"
 import styled from 'styled-components'
 import Image, { FixedObject } from "gatsby-image"
 import WorkItem from "../components/WorkItem"
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
+import { faChevronLeft } from '@fortawesome/free-solid-svg-icons'
 
-const Title = styled.h1`
-`
-
-const Border = styled.hr`
-`
-
+library.add(faChevronLeft)
 
 interface WorkTemplateProps {
   data: {
@@ -65,10 +63,120 @@ interface WorkTemplateProps {
 }
 
 const Nav = styled.nav`
-  position: relative;
-  left: 300px; 
   text-align: center;
   display: flex;
+  background: #F7F7F7;
+  width: 100%;
+  height: 660px;
+  
+  & > a {
+    top: 119px;
+    position: relative;
+    left: 300px; 
+  }
+`
+const Wrapper = styled.div`
+  color:#353559;
+  line-height: 28px;
+  font-family: Roboto;
+  padding-top: 75px;
+
+    & > h2 {
+      position: absolute;
+      width: 1198px;
+      height: 28px;
+      top: 187px;
+      
+      margin: 0;
+      font-weight: bold;
+      font-size: 40px;
+      text-align: center;
+      font-family: Roboto;
+        
+    }
+
+    & > p {
+      position: absolute;
+      width: 1198px;
+      height: 26px;
+      top: 229px;
+      font-weight: 500;
+      font-size: 16px;
+      text-align: center;
+    }
+`
+const WrapperGoTop = styled(Link)`
+  box-shadow: none;
+  color: black;
+  display: inline-block;
+  margin-top: 20px;
+
+  & > svg {
+    color: #EF75BE;
+    margin-right: 24px;
+    margin-left: 31px;
+  }
+
+  & > hr {
+    margin-top: 20px;
+    width: 1200px;
+    height: 2px;
+  }
+
+`
+const StyledWorkContent = styled.div`
+    margin-bottom:109px;
+
+    & h3 {
+      margin:0 ;
+      margin-bottom: 8px;
+      font-size: 16px;
+      font-family: Roboto;
+      color: #ff981a;
+      height: 28px;
+    }
+    & > div {
+      margin-top: 27px;
+      font-size: 14px;
+    }
+    & > hr, div { 
+      width: 410px;
+    }
+`
+const WorkContent = (props) => {
+  return(
+    <StyledWorkContent>
+      <h3>{props.name}</h3>
+      <hr/>
+      <div　dangerouslySetInnerHTML={props.html}/>
+    </StyledWorkContent>
+  )
+}
+const Top = (props) => {
+  return(
+  <WrapperGoTop to={props.to} rel={props.top} style={{boxShadow: "none"}}>
+    <FontAwesomeIcon icon="chevron-left"/>
+    {props.children}
+    <hr dangerouslySetInnerHTML={props.html}/>
+  </WrapperGoTop>
+  )
+}
+
+const FlexHeader = styled.header`
+  margin-top: 150px;
+  display: flex;
+  &:first-child {
+    margin-left: 30px;
+  }
+
+  & .mt30 {
+    margin-top:30px;
+  }
+  
+  & > div {
+    margin-bottom: 119px;
+    margin-right: 28px;
+  }
 `
 class WorkTemplate extends React.Component<WorkTemplateProps> {
   render() {
@@ -84,23 +192,30 @@ class WorkTemplate extends React.Component<WorkTemplateProps> {
           title={work.frontmatter.name}
           description={work.html}
         />
-        <Link to="/" rel="top">Tamie Taniguchi</Link>
+        <Top to="/" rel="top">Tamie Taniguchi</Top>
+        <Wrapper>
+        <h2>WORKS</h2>
+        <p>制作実績など</p>
         <article>
-          <header>
-            <Title>
-              {work.frontmatter.name}
-            </Title>
-            {data.img.childImageSharp && <Image fixed={data.img.childImageSharp.fixed} alt="kari"/>}
-            {data.more.childImageSharp &&             
-            <Image fixed={data.more.childImageSharp.fixed} alt="kari"/>
-            }
-            <div dangerouslySetInnerHTML={{ __html: work.html }} />
-
-            <div dangerouslySetInnerHTML={{ __html: bic }} />
-          </header>
-          <Border />
+          <FlexHeader>
+            <div>
+              {data.img.childImageSharp && <Image fixed={data.img.childImageSharp.fixed} alt="kari"/>}
+              {data.more.childImageSharp &&             
+              <Image fixed={data.more.childImageSharp.fixed} alt="kari" className="mt30"/>
+              }
+            </div>
+            
+            <div>
+              <WorkContent name={work.frontmatter.name} html={{ __html: work.html }}/>
+              <WorkContent name="担当" html={{ __html: bic }} />
+            </div>
+            
+          </FlexHeader>
+          
         </article>
 
+        
+        </Wrapper>
         <Nav>
           
 
@@ -152,14 +267,14 @@ export const pageQuery = graphql`
     }
     img: file(absolutePath: { regex: $imgslug } ) {
       childImageSharp {
-        fixed(width: 275, height: 275) {
+        fixed(width: 700) {
           ...GatsbyImageSharpFixed
         }
       }
     }
     more: file(absolutePath: { regex: $moreimgslug } ) {
       childImageSharp {
-        fixed(width: 275, height: 275) {
+        fixed(width: 700) {
           ...GatsbyImageSharpFixed
         }
       }

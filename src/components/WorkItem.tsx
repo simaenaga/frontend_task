@@ -22,10 +22,14 @@ const WrapperLink = styled(Link)`
     margin-right:30px;
     width: 273px;
     height: 423px;
+    box-shadow: none;
+    color:#353559;
 
-    & > FontAwesomeIcon {
-        text-align: center;
-        font-size: 14px;
+
+    & > svg {
+        margin-top: 35px; 
+        font-size: 25px;
+        color: #EF75BE;
     }
 `
 const WorkItem = (props: WorkItemProps) => {
