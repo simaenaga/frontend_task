@@ -1,6 +1,5 @@
 import * as React from "react";
 
-import { rhythm, scale } from "../utils/typography"
 import styled from 'styled-components'
 
 import Level from "./Level"
@@ -84,43 +83,61 @@ const ItemBox = styled.div`
   display: flex;
   flex-direction: column;
   flex-wrap: wrap;
-  position: relative;
-  top:  100px;
-  left: 200px;
+  margin-top: -134px;
+  margin-left: 250px;
   font-size: 14px;
 
   & > div {
-    p {
+    width: 305px;
+    & p {
       margin: 2px;
-      width:100px;
+      width:50px;
       display: inline-block;
       text-align: right;
       height:24px;
     }
-    progress {
+    & progress {
+      -webkit-appearance: none;
+      appearance: none;
       position: relative;
-      left: 50px;
+      left: 10px;
       height: 16px;
       width: 250px;
-      overflow: hidden;
       border-radius: 0;
+    }
+
+    progress::-webkit-progress-value {
+      background-color:#ff981a;
+    
+    }
+    progress::-webkit-progress-bar{
+      background-color: #353559
     }
   }
 `
 
 const ListBox = styled.ul`
+  list-style: none;
+  margin-top: 150px;
+  padding-left: 35px;
+
   & > li {
     color: #353559;
-    position: relative;
     width: 520px;
     font-size: 16px;
     line-height: 28px;
-    left: 53px;
-    top: 150px;
+    display: flex;
     
     .bold {
       font-weight: bold;
     }
+  }
+
+  li::before {
+    content: "• ";
+    font-size: 25px;
+    opacity: 0.5;
+    margin-right: 18px;
   }
 
   & > li:not(:last-child)::after {
@@ -128,45 +145,40 @@ const ListBox = styled.ul`
     width: 1px;
     background:black;
     height: 74px;
-    position: absolute;
-    left: -16px;
-    top: 17px;
+    position: relative;
+    right: 155px;
+    top: 25px;
+    opacity: 0.5;
   }
 `
 
 const PercentWrapper = styled.div`
-  position: relative;
-  top: 200px;
-  left: 100px;
+  margin-left: 8px;
+  padding-top: 38px;
   z-index:100;
-
-  & > span {
-    width: 80px;
-    font-size: 50px;
-  }
-
+  text-align: center;
+  font-size: 20px;
 `
 const Per = styled.div`
-    background: black;
-    border-radius: 100% 0 0 0;
-    width: 100px;
-    height: 100px;
-    position: relative;
-
+  background: #353559;
+  border-radius: 100% 0 0 0;
+  width: 65px;
+  height: 65px;
+  position: relative;
 `
 
 const PerCircle = styled.div`
-z-index:1;
-      background: pink;
-      width: 200px;
-      height: 200px;
-      border-radius: 50%;
-      margin-top: 50px;
-      margin-left: 20px;
+  z-index:1;
+  background: #ff981a;
+  width: 130px;
+  height: 130px;
+  border-radius: 50%;
+  margin-top: 35px;
+  margin-left: 63px;
 
-      &:hover + .hukidashi {
-        display: block;
-      }
+  &:hover > .hukidashi {
+    display: block;
+  }
 `
 
 const SkillLists = styled.ul`
@@ -192,31 +204,49 @@ const SkillLists = styled.ul`
       font-weight: 500;
     }
   }
+
 `
 const PerSmallCircle = styled.div`
-  width: 150px;
-  height: 150px;
+  width: 110px;
+  height: 110px;
   border-radius: 50%;
-  background: white;
+  background: #F7F7F7;
   position: relative;
-  top: -75px;
-  left: 25px;
+  top: -55px;
+  left: 9px;
 `
-const HukidashiStyled = styled.div`
+const Hukidashi = styled.div`
   display: none;
+  background: rgba(0,0,0,0.5);
+  border-radius: 4px;
+  width: 97px;
+  height: 43px;
+  margin: 0;
+  margin-top: -44px;
+  margin-left: 50px;
+  padding-top: 10px;
+  padding-left: 6px;
+  color: white;
+  font-size: 14px;
 
-  & > div {
-    
+  &::before {
+    width: 0;
+    height: 0;
+    content: "";
+    position: relative;
+    top: -37px;
+    left: 20px;
+    border-style: solid;
+    border-width: 0 4px 6.9px 4px;
+    border-color: transparent transparent rgba(0,0,0,0.5) transparent;
+  }
+
+  &::after { 
+    ${props => `content: ${props.children};`}
   }
 `
-
-const Hukidashi = (props) => {
-  return(
-    <HukidashiStyled>
-      {props.children}
-      <div/>
-    </HukidashiStyled>
-  )
+const List = (props) => {
+return(<li><span>{props.children}</span></li>)
 }
 class Detail extends React.Component<DetailProps> {
     render(){
@@ -230,32 +260,32 @@ class Detail extends React.Component<DetailProps> {
             <DetailBox>
                 <DetailContent title="EXPELIENCE">
                   <ListBox>
-                    <li>
+                    <List>
                       <div className="bold">
                         {experience.now}<br/>
                         {experience.name}
                       </div>
                       
                       {experience.description}
-                    </li>
+                    </List>
                   </ListBox>
                 </DetailContent>
 
                 <DetailContent title="EDUCATION">
                   <ListBox>
-                    <li>
+                    <List>
                       <div className="bold">
                         {edu.now}<br/>
                         {edu.now_name}
                       </div>
-                    </li>
-                    <li>
+                    </List>
+                    <List>
                       <div className="bold">
                         {edu.pre_one}<br/>
                         {edu.pre_one_name}
                       </div>
 
-                    </li>
+                    </List>
                   </ListBox>
                 </DetailContent>
 
@@ -297,18 +327,22 @@ class Detail extends React.Component<DetailProps> {
 
                 <DetailContent title="PERSONAL QUALITIES">
                   <ListBox>
-                    <li><div dangerouslySetInnerHTML={{ __html: pq.node.html }}/></li>
+                    <List><div dangerouslySetInnerHTML={{ __html: pq.node.html }}/></List>
                   </ListBox>
 
-                  <PercentWrapper><span>{per/5}</span>%</PercentWrapper>
                   
-                  <PerCircle><Per></Per>
-                  <PerSmallCircle/></PerCircle>
-                  <Hukidashi>75%</Hukidashi>
+                  
+                  <PerCircle><Per/>
+                    <PerSmallCircle>
+                      <PercentWrapper>{per/5}%</PercentWrapper>
+                    </PerSmallCircle>
+                    <Hukidashi className="hukidashi">Green 75%</Hukidashi>
+                  </PerCircle>
+                  
                   <ItemBox>
                     <div>
                       <p>{pqItem.item1}</p>
-                      <progress max="100" value={pqItem.item1_per}/>
+                      <progress max="100" value={pqItem.item1_per} className="pb"/>
                     </div>
                     <div>
                       <p>{pqItem.item2}</p>
@@ -316,7 +350,7 @@ class Detail extends React.Component<DetailProps> {
                     </div>
                     <div>
                       <p>{pqItem.item3}</p>
-                      <progress max="100" value={pqItem.item3_per}/>
+                      <progress max="100" value={pqItem.item3_per}>猫です</progress>
                     </div>
                     <div>
                       <p>{pqItem.item4}</p>

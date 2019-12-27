@@ -31,22 +31,22 @@ interface WorkTemplateProps {
     },
     img: {
       childImageSharp: {
-        fixed
+        fixed: FixedObject
       }
     },
     more: {
       childImageSharp: {
-        fixed
+        fixed: FixedObject
       }
     },
     prevImg: {
       childImageSharp: {
-        fixed
+        fixed: FixedObject
       }
     },
     nextImg: {
       childImageSharp: {
-        fixed
+        fixed: FixedObject
       }
     }
   },

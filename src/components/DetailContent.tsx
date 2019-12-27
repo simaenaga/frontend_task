@@ -1,8 +1,6 @@
 import * as React from "react";
 import styled from 'styled-components'
 import { library } from '@fortawesome/fontawesome-svg-core'
-
-import Image, { FixedObject } from "gatsby-image"
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faAddressBook } from '@fortawesome/free-solid-svg-icons'
 

@@ -12,16 +12,13 @@ import WorkItem from "./WorkItem"
 
 library.add(faChevronRight)
 const WorkBox = styled.div`
-    height: 542px;
+    height: 685px;
     top: 1235px;
 
     & h2 {
-        position: absolute;
-        width: 1198px;
+        width: 1200px;
         height: 28px;
-        left: 0px;
-        top: 550px;
-        margin: 0;
+        margin: 120px auto 0 auto;
         font-weight: bold;
         font-size: 40px;
         line-height: 28px;
@@ -31,18 +28,16 @@ const WorkBox = styled.div`
     }
 
     & > div {
-        margin-top: 263px;
+        margin-top: 75px;
         margin-left:157px;
         display: -webkit-flex;
         display: flex;
     }
 
     & > p {
-        position: absolute;
-        width: 1198px;
+        width: 1200px;
         height: 26px;
-        left: 0px;
-        top: 592px;
+        margin: 14px auto 0 auto;
 
         font-weight: 500;
         font-size: 16px;

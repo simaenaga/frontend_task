@@ -1,6 +1,5 @@
 import * as React from "react";
 
-import { rhythm, scale } from "../utils/typography"
 import styled from 'styled-components'
 import Image, { FixedObject } from "gatsby-image"
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
@@ -34,35 +33,33 @@ interface ActivityProps {
 }
 
 const ActivityBox = styled.div`
-    height: 672px;
+    height: 552px;
     top: 1235px;
     color:#353559;
     line-height: 28px;
 
     & > h2 {
-      position: absolute;
-      width: 1198px;
-      height: 28px;
-      left: 0px;
-      top: 2517px;
-      margin: 0;
-      font-weight: bold;
-      font-size: 40px;
-      text-align: center;
-      font-family: Roboto;
-
+      width: 1200px;
+        height: 28px;
+        margin: 120px auto 0 auto;
+        font-weight: bold;
+        font-size: 40px;
+        line-height: 28px;
+        text-align: center;
+        font-family: Roboto;
+        color:#353559;
     }
 
     & > p {
-      position: absolute;
-      width: 1198px;
-      height: 26px;
-      left: 0px;
-      top: 2559px;
+      width: 1200px;
+        height: 26px;
+        margin: 14px auto 0 auto;
 
-      font-weight: 500;
-      font-size: 16px;
-      text-align: center;
+        font-weight: 500;
+        font-size: 16px;
+        line-height: 28px;
+        color:#353559;
+        text-align: center;
     }
 `
 
@@ -111,8 +108,7 @@ const ContentsWrapper = styled.div`
   display: flex;
 `
 const ContentWrapper = styled.div`
-  position: relative;
-  top: 263px;
+  margin-top: 67px;
   width: 600px;
 
   & > h3 {
