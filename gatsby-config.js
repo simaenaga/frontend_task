@@ -2,7 +2,8 @@ module.exports = {
   siteMetadata: {
     title: `Tamie Taniguchi`,
     author: `Tamie Taniguchi`,
-    description: `A starter blog demonstrating what Gatsby can do.`
+    description: `A starter blog demonstrating what Gatsby can do.`,
+    siteUrl: `https://testtest.com`
   },
   plugins: [
     `gatsby-plugin-styled-components`,
