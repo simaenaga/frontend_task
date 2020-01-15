@@ -1,0 +1,13 @@
+backend:
+  name: github
+  repo: simaenaga/frontend_task # GitHubのリポジトリ　「https://github.com/」の後ろの部分
+
+media_folder: "static/images"
+
+public_folder: "images/"
+
+collections:
+  - label: "Blog" # 管理画面のサイドバーで使う
+    name: "post" # 管理画面のパスで使う　例：/admin/collections/blog
+    folder: "content/post" # Markdownを保存するディレクトリ。Hugoのsectionにあたる
+    slug: "{{year}}-{{month}}-{{day}}-{{slug}}" # Markdownのファイル名　例：YYYY-MM-DD-title.md
